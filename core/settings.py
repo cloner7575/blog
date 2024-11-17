@@ -24,7 +24,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://sepehradblog.runflare.run/']
+CSRF_TRUSTED_ORIGINS = ['http://sepehradblog.runflare.run/']
 
 
 # Application definition
