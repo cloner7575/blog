@@ -26,8 +26,8 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['http://sepehradblog.runflare.run/','https://sepehradblog.runflare.run/']
-CORS_ALLOWED_ORIGINS=['http://sepehradblog.runflare.run/','https://sepehradblog.runflare.run/']
+CSRF_TRUSTED_ORIGINS = ['http://sepehradblog.runflare.run','https://sepehradblog.runflare.run']
+CORS_ALLOWED_ORIGINS=['http://sepehradblog.runflare.run','https://sepehradblog.runflare.run']
 CSRF_USE_SESSIONS = False
 CSRF_COOKIE_SECURE = False
 
