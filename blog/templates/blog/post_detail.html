@@ -1,0 +1,165 @@
+{% extends 'master.html' %}
+{% load index_tags %}
+{% block content %}
+    <!-- =======================
+    Inner intro START -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 mx-auto pt-md-5">
+                    {% for tag in post.tags.all %}
+                        <a href="#" class="badge mb-2" style="background-color: {{ tag.color }}">
+                            <i class="fas fa-circle me-2 small fw-bold"></i>{{ tag.name }}
+                        </a>
+                    {% endfor %}
+                    <h1>{{ post.title }}</h1>
+                    <p class="lead">{{ post.description }}</p>
+
+                    <!-- Info -->
+                    <ul class="nav nav-divider align-items-center">
+                        {% if post.author %}
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                با <a href="#" class="text-reset btn-link">{{ post.author.user.first_name }}</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">{{ post.released_at|jalalidate }}</li>
+                        <li class="nav-item">{{ post.time_to_read }} دقیقه زمان مطالعه</li>
+                    </ul>
+                    <img class="rounded mt-5" src="{{ post.image.url }}" alt="Image">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =======================
+    Inner intro END -->
+
+    <!-- =======================
+    Main START -->
+    <section class="pt-0">
+        <div class="container position-relative">
+            <div class="row">
+                <!-- Main Content START -->
+                <div class="col-lg-9 mx-auto"><p>
+{#                    <p><span class="dropcap bg-primary bg-opacity-10 text-primary px-2">R</span>#}
+                        {{ post.content|safe }}</p>
+
+                    {% if post.author %}
+                    <!-- Author info START -->
+                    <div class="d-flex p-2 p-md-4 mt-5 border rounded">
+                        <!-- Avatar -->
+                        <a href="#">
+                            <div class="avatar avatar-xxl me-2 me-md-4">
+                                <img class="avatar-img rounded-circle" src="{{ post.author.avatar.url }}" alt="avatar">
+                            </div>
+                        </a>
+                        <!-- Info -->
+                        <div>
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <div>
+                                    <h4 class="m-0"><a href="#">{{ post.author.user.first_name }} {{ post.author.user.last_name }}</a></h4>
+
+                                </div>
+
+                            </div>
+                            <p class="my-2">{{ post.author.bio }}</p>
+                            <!-- Social icons -->
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a class="nav-link ps-0 pe-2 fs-5" href="#"><i
+                                            class="fab fa-facebook-square"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Author info END -->
+                    {% endif %}
+
+                    <!-- Next prev post START -->
+                    <div class="row g-0 mt-5 mx-0 border-top border-bottom">
+                        <div class="col-sm-6 py-3 py-md-4">
+                            <div class="d-flex align-items-center position-relative">
+                                <!-- Icon -->
+                                <div class="bg-primary py-1">
+                                    <i class="bi bi-chevron-compact-left fs-3 text-white px-1 rtl-flip"></i>
+                                </div>
+                                <!-- Title -->
+                                <div class="ms-3">
+                                    <h5 class="m-0"><a href="#" class="stretched-link btn-link text-reset">سال 2022
+                                        رویایی و فوق العاده برای طارمی</a></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 py-3 py-md-4 text-sm-end">
+                            <div class="d-flex align-items-center position-relative">
+                                <!-- Title -->
+                                <div class="me-3">
+                                    <h5 class="m-0"><a href="#" class="stretched-link btn-link text-reset">فیلم‌های
+                                        بالیوودی الگوی ضدانقلاب شده!</a></h5>
+                                </div>
+                                <!-- Icon -->
+                                <div class="bg-primary py-1">
+                                    <i class="bi bi-chevron-compact-right fs-3 text-white px-1 rtl-flip"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Next prev post START -->
+
+                </div>
+                <!-- Main Content END -->
+            </div>
+        </div>
+    </section>
+    <!-- =======================
+    Main END -->
+
+    <!-- =======================
+    Tag and share END -->
+    <section class="pt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 mx-auto">
+                    <div class="text-center">
+                        <!-- Share -->
+                        <div class="list-group-inline list-unstyled">
+                            <h6 class="mt-2 me-4 d-inline-block"><i class="fas fa-share-alt me-2"></i>اشتراک گذاری:</h6>
+                            <ul class="list-inline list-unstyled d-inline-block">
+                                <li class="list-inline-item"><a href="#" class="me-3 text-body">Facebook</a></li>
+                                <li class="list-inline-item"><a href="#" class="me-3 text-body">Twitter</a></li>
+                                <li class="list-inline-item"><a href="#" class="me-3 text-body">Dribble</a></li>
+                            </ul>
+                        </div>
+                        <!-- Tags -->
+{#                        <ul class="list-inline text-primary-hover mt-0 mt-lg-3">#}
+{#                            <li class="list-inline-item">#}
+{#                                <a class="text-body" href="#">#رسانه</a>#}
+{#                            </li>#}
+{#                            <li class="list-inline-item">#}
+{#                                <a class="text-body" href="#">#استارت آپ</a>#}
+{#                            </li>#}
+{#                            <li class="list-inline-item">#}
+{#                                <a class="text-body" href="#">#ورزش</a>#}
+{#                            </li>#}
+{#                            <li class="list-inline-item">#}
+{#                                <a class="text-body" href="#">#فیلم</a>#}
+{#                            </li>#}
+{#                            <li class="list-inline-item">#}
+{#                                <a class="text-body" href="#">#برگزیده</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+                    </div>
+                </div> <!-- row END -->
+            </div>
+        </div>
+    </section>
+    <!-- =======================
+    Tag and share END -->
+{% endblock content %}
