@@ -31,8 +31,9 @@
                                                             class="fas fa-circle me-2 small fw-bold"></i>{{ post.category }}
                                                     </a>
                                                     <!-- Card title -->
-                                                    <h2 class="text-white display-6"><a href="{% url 'post_detail' post.slug %}"
-                                                                                        class="btn-link text-reset fw-normal">{{ post.title }}</a>
+                                                    <h2 class="text-white display-6"><a
+                                                            href="{% url 'post_detail' post.slug %}"
+                                                            class="btn-link text-reset fw-normal">{{ post.title }}</a>
                                                     </h2>
                                                     <p class="text-white">{{ post.short_description }}</p>
                                                     <!-- Card info -->
@@ -77,68 +78,63 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        {% for post in posts %}
-                            <!-- Card item START -->
-                            <div class="card border rounded-3 up-hover p-4 mb-4">
-                                <div class="row g-3">
-                                    <div class="col-lg-5">
-                                        <!-- Categories -->
-                                        {% for tag in post.tags.all %}
-                                            <a href="#" class="badge mb-2" style="background-color: {{ tag.color }}">
-                                                <i class="fas fa-circle me-2 small fw-bold"></i>{{ tag.name }}
-                                            </a>
-                                        {% endfor %}
-                                        <!-- Title -->
-                                        <h4 class="card-title">
-                                            <a href="{% url 'post_detail' post.slug %}" class="btn-link text-reset stretched-link">{{ post.title }}</a>
-                                        </h4>
-                                        <!-- Author info -->
-                                        <div class="d-flex align-items-center position-relative mt-3">
-                                            {% if post.author %}
-                                                <div class="avatar me-2">
-                                                    <img class="avatar-img rounded-circle"
-                                                         src="{{ post.author.avatar.url }}"
-                                                         alt="avatar">
 
-                                                </div>
-                                                <h5 class="mb-1"><a href="#"
-                                                                    class="stretched-link text-reset btn-link">{{ post.author.user.first_name }}</a>
-                                                </h5>
-                                            {% endif %}
+                        <!-- Card item START -->
+                        <div class="card border rounded-3 up-hover p-4 mb-4">
+                            <div class="row g-3">
+                                <div class="col-lg-5">
+                                    <!-- Categories -->
+                                    {% for tag in last_post.tags.all %}
+                                        <a href="#" class="badge mb-2" style="background-color: {{ tag.color }}">
+                                            <i class="fas fa-circle me-2 small fw-bold"></i>{{ tag.name }}
+                                        </a>
+                                    {% endfor %}
+                                    <!-- Title -->
+                                    <h4 class="card-title">
+                                        <a href="{% url 'post_detail' last_post.slug %}"
+                                           class="btn-link text-reset stretched-link">{{ last_post.title }}</a>
+                                    </h4>
+                                    <!-- Author info -->
+                                    <div class="d-flex align-items-center position-relative mt-3">
+                                        {% if last_post.author %}
+                                            <div class="avatar me-2">
+                                                <img class="avatar-img rounded-circle"
+                                                     src="{{ last_post.author.avatar.url }}"
+                                                     alt="avatar">
 
-                                            <div>
-
-                                                <ul class="nav align-items-center small">
-                                                    <li class="nav-item me-3"
-                                                        style="margin-right: 5px">{{ post.released_at|jalalidate }}</li>
-                                                    <li class="nav-item"><i
-                                                            class="far fa-clock me-1"></i>{{ post.time_to_read }} دقیقه
-                                                        زمان
-                                                        مطالعه
-                                                    </li>
-                                                </ul>
                                             </div>
+                                            <h5 class="mb-1"><a href="#"
+                                                                class="stretched-link text-reset btn-link">{{ last_post.author.user.first_name }}</a>
+                                            </h5>
+                                        {% endif %}
+
+                                        <div>
+
+                                            <ul class="nav align-items-center small">
+                                                <li class="nav-item me-3"
+                                                    style="margin-right: 5px">{{ last_post.released_at|jalalidate }}</li>
+                                                <li class="nav-item"><i
+                                                        class="far fa-clock me-1"></i>{{ last_post.time_to_read }} دقیقه
+                                                    زمان
+                                                    مطالعه
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <!-- Detail -->
-                                    <div class="col-md-6 col-lg-4">
-                                        <p>{{ post.description }}</p>
-                                    </div>
-                                    <!-- Image -->
-                                    <div class="col-md-6 col-lg-3">
-                                        <img class="rounded-3" src="{{ post.image.url }}"
-                                             alt="Card image">
-                                    </div>
+                                </div>
+                                <!-- Detail -->
+                                <div class="col-md-6 col-lg-4">
+                                    <p>{{ last_post.description }}</p>
+                                </div>
+                                <!-- Image -->
+                                <div class="col-md-6 col-lg-3">
+                                    <img class="rounded-3" src="{{ last_post.image.url }}"
+                                         alt="Card image">
                                 </div>
                             </div>
-                            <!-- Card item END -->
-                        {% endfor %}
+                        </div>
+                        <!-- Card item END -->
 
-
-
-                        <!-- Load more -->
-                        <button type="button" class="btn btn-primary-soft w-100">مقالات بیشتر <i
-                                class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
 
                     </div>
                 </div>
@@ -146,6 +142,44 @@
         </section>
         <!-- =======================
         Highlights END -->
+
+        <section class="position-relative pt-0">
+            <div class="container">
+                <div class="row filter-container overflow-hidden" data-isotope='{"layoutMode": "masonry"}'>
+                    {% for post in top_8_posts %}
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 grid-item">
+                            <div class="card mb-4">
+                                <!-- Card img -->
+                                <div class="card-fold position-relative">
+                                    <img class="card-img" src="{{ post.image.url }}" alt="Card image">
+                                </div>
+                                <div class="card-body px-0 pt-3">
+                                    <h4 class="card-title"><a href="{% url 'post_detail' post.slug %}"
+                                                              class="btn-link text-reset stretched-link">{{ post.title }}</a>
+                                    </h4>
+                                    <p class="card-text">{{ post.description }}</p>
+                                    <!-- Card info -->
+                                    <ul class="nav nav-divider align-items-center text-uppercase small">
+                                        {% if post.author %}
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link text-reset btn-link">رضا مرادی</a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="nav-item">{{ post.released_at|jalalidate }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+                    {% endfor %}
+
+                </div> <!-- Row end -->
+            </div>
+        </section>
+        <!-- Load more -->
+        <button type="button" class="btn btn-primary-soft w-100">مقالات بیشتر <i
+                class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
 
         <!-- =======================
         Adv START -->
@@ -161,6 +195,7 @@
                 </div>
             </div>
         </section>
+
         <!-- =======================
         Adv END -->
 
@@ -236,328 +271,328 @@
 
         <!-- =======================
         Tab post START -->
-{#        <section class="pt-4 pb-0">#}
-{#            <div class="container">#}
-{#                <div class="row">#}
-{#                    <div class="col-12">#}
-{#                        <ul class="nav nav-tabs">#}
-{#                            <li class="nav-item"><a class="nav-link fs-6 active" data-bs-toggle="tab" href="#tab-1-1">#}
-{#                                <i#}
-{#                                        class="fab fa-readme me-2"></i> برگزیده ها </a></li>#}
-{#                            <li class="nav-item"><a class="nav-link fs-6" data-bs-toggle="tab" href="#tab-1-2"> <i#}
-{#                                    class="fas fa-fire me-2"></i> پر بحث ها </a></li>#}
-{#                        </ul>#}
-{#                        <div class="tab-content">#}
-{#                            <!-- Most read tab START -->#}
-{#                            <div class="tab-pane show active" id="tab-1-1">#}
-{#                                <div class="row">#}
-{#                                    <!-- Tab items group START -->#}
-{#                                    <div class="col-md-4">#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">01</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">اجرای تفاهم‌نامه#}
-{#                                                همکاری برای سهولت دریافت مدارک صنایع‌دستی</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">02</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">هرگز تاثیر رسانه#}
-{#                                                های#}
-{#                                                اجتماعی را دست کم نگیرید!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">03</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">ایده های تجاری که#}
-{#                                                در#}
-{#                                                سال های آینده رونق خواهند گرفت!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">04</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">افتتاح نمایشگاه#}
-{#                                                آثار#}
-{#                                                هنری در نگارخانه شهید شهرانی شهرکرد</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">05</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">8 مشکل اولیه#}
-{#                                                استارت#}
-{#                                                آپ ها و راه حل آنها</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">06</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">رازهای کوچک کثیف#}
-{#                                                در#}
-{#                                                مورد صنعت تجارت</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">07</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">ده نکته در مورد#}
-{#                                                استارتاپ ها که نمی توانید از کتاب یاد بگیرید!</a></h5>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <!-- Tab items group END -->#}
-{#                                    <!-- Tab items group START -->#}
-{#                                    <div class="col-md-4">#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">08</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین حساب های#}
-{#                                                توییتر برای یادگیری سرمایه گذاری در ایران</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">09</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">عادات بدی که#}
-{#                                                افراد در#}
-{#                                                صنعت تجارت باید ترک کنند!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">10</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">7 درس که تمام#}
-{#                                                آنچه را#}
-{#                                                که یک استارتاپ نیاز دارید به شما می آموزد!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">11</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">فیلم‌های بالیوودی#}
-{#                                                الگوی ضدانقلاب شده!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">12</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link"> اطلاعات گرافیکی#}
-{#                                                شگفت#}
-{#                                                انگیز در مورد تجارت</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">13</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">10 مشکل بزرگ#}
-{#                                                استارت‌آپ‌ها</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">14</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بررسی سرفیس پرو ۹#}
-{#                                                |‌#}
-{#                                                Surface Pro 9 Review</a></h5>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <!-- Tab items group END -->#}
-{#                                    <!-- Tab items group START -->#}
-{#                                    <div class="col-md-4">#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">15</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین حساب های#}
-{#                                                توییتر برای یادگیری سرمایه گذاری</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">16</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">برگزاری جشنواره#}
-{#                                                زمستانه آکادمی ایرانسل با تخفیف ویژه</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">17</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین تابلوهای#}
-{#                                                Pinterest برای یادگیری در مورد تجارت</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">18</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">قهرمانی آرژانتین#}
-{#                                                و#}
-{#                                                لیونل مسی در جام جهانی قطر</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">19</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">گسترش ارتباط با#}
-{#                                                دانشگاه، یکی از مهمترین الزامات اپراتور دیجیتال</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">20</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">سوالاتی که همه#}
-{#                                                افراد#}
-{#                                                شاغل در IT باید بدانند چگونه به آنها پاسخ دهند!</a></h5>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <!-- Tab items group END -->#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <!-- Most read tab END -->#}
-{#                            <!-- Trending tab START -->#}
-{#                            <div class="tab-pane show" id="tab-1-2">#}
-{#                                <div class="row">#}
-{#                                    <!-- Tab items group START -->#}
-{#                                    <div class="col-md-4">#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">01</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">انتشار پاسخ#}
-{#                                                سؤالات#}
-{#                                                «امتحان نهایی» ۸ دقیقه بعد از شروع امتحانات</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">02</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">20 اطلاعات#}
-{#                                                گرافیکی#}
-{#                                                شگفت انگیز در مورد تجارت</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">03</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">رایج ترین بحث#}
-{#                                                تجاری#}
-{#                                                آنطور که فکر می کنید پیچیده نیست!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">04</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">اجرای تفاهم‌نامه#}
-{#                                                همکاری برای سهولت دریافت مدارک صنایع‌دستی</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">05</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">فیلم‌های بالیوودی#}
-{#                                                الگوی ضدانقلاب شده!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">06</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">7 درس که تمام#}
-{#                                                آنچه را#}
-{#                                                که یک استارتاپ نیاز دارید به شما می آموزد!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">07</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">می شد از بدترین#}
-{#                                                شکست#}
-{#                                                کسب و کار در تمام دوران ها جلوگیری کرد!</a></h5>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <!-- Tab items group END -->#}
-{#                                    <!-- Tab items group START -->#}
-{#                                    <div class="col-md-4">#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">08</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">8 مشکل اولیه#}
-{#                                                استارت#}
-{#                                                آپ ها و راه حل آنها</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">09</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">برگزاری جشنواره#}
-{#                                                زمستانه آکادمی ایرانسل با تخفیف ویژه</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">10</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">رازهای کوچک کثیف#}
-{#                                                در#}
-{#                                                مورد صنعت تجارت</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">11</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">10 مشکل بزرگ#}
-{#                                                استارت‌آپ‌ها</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">12</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">هرکسی که در تجارت#}
-{#                                                کار#}
-{#                                                می کند باید بداند چگونه به آن پاسخ دهد!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">13</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین حساب های#}
-{#                                                توییتر برای یادگیری سرمایه گذاری</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">14</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین تابلوهای#}
-{#                                                Pinterest برای یادگیری در مورد تجارت</a></h5>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <!-- Tab items group END -->#}
-{#                                    <!-- Tab items group START -->#}
-{#                                    <div class="col-md-4">#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">15</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">10 نشانه که نشان#}
-{#                                                می#}
-{#                                                دهد برای شروع یک کسب و کار جدید به آن نیاز دارید!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">16</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">کنایه های آماری#}
-{#                                                وزیر#}
-{#                                                روحانی به دولت رئیسی درباره اینترنت</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">17</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">سوالاتی که همه#}
-{#                                                افراد#}
-{#                                                شاغل در IT باید بدانند چگونه به آنها پاسخ دهند!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">18</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">ایده کسب و کار که#}
-{#                                                فورا شما را در روحیه خوبی قرار می دهد!</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">19</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">کیفیت هوای تهران#}
-{#                                                همچنان ناسالم برای همه</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">20</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">طرح مجلس برای#}
-{#                                                گرفتن#}
-{#                                                مالیات از سفته بازها</a></h5>#}
-{#                                        </div>#}
-{#                                        <!-- Item -->#}
-{#                                        <div class="d-flex position-relative mb-3">#}
-{#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">21</span>#}
-{#                                            <h5><a href="#" class="stretched-link text-reset btn-link">چگونه در محل کار#}
-{#                                                تغذیه سالمی داشته باشیم؟</a></h5>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <!-- Tab items group END -->#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <!-- Trending tab END -->#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </section>#}
+        {#        <section class="pt-4 pb-0">#}
+        {#            <div class="container">#}
+        {#                <div class="row">#}
+        {#                    <div class="col-12">#}
+        {#                        <ul class="nav nav-tabs">#}
+        {#                            <li class="nav-item"><a class="nav-link fs-6 active" data-bs-toggle="tab" href="#tab-1-1">#}
+        {#                                <i#}
+        {#                                        class="fab fa-readme me-2"></i> برگزیده ها </a></li>#}
+        {#                            <li class="nav-item"><a class="nav-link fs-6" data-bs-toggle="tab" href="#tab-1-2"> <i#}
+        {#                                    class="fas fa-fire me-2"></i> پر بحث ها </a></li>#}
+        {#                        </ul>#}
+        {#                        <div class="tab-content">#}
+        {#                            <!-- Most read tab START -->#}
+        {#                            <div class="tab-pane show active" id="tab-1-1">#}
+        {#                                <div class="row">#}
+        {#                                    <!-- Tab items group START -->#}
+        {#                                    <div class="col-md-4">#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">01</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">اجرای تفاهم‌نامه#}
+        {#                                                همکاری برای سهولت دریافت مدارک صنایع‌دستی</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">02</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">هرگز تاثیر رسانه#}
+        {#                                                های#}
+        {#                                                اجتماعی را دست کم نگیرید!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">03</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">ایده های تجاری که#}
+        {#                                                در#}
+        {#                                                سال های آینده رونق خواهند گرفت!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">04</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">افتتاح نمایشگاه#}
+        {#                                                آثار#}
+        {#                                                هنری در نگارخانه شهید شهرانی شهرکرد</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">05</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">8 مشکل اولیه#}
+        {#                                                استارت#}
+        {#                                                آپ ها و راه حل آنها</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">06</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">رازهای کوچک کثیف#}
+        {#                                                در#}
+        {#                                                مورد صنعت تجارت</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">07</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">ده نکته در مورد#}
+        {#                                                استارتاپ ها که نمی توانید از کتاب یاد بگیرید!</a></h5>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                    <!-- Tab items group END -->#}
+        {#                                    <!-- Tab items group START -->#}
+        {#                                    <div class="col-md-4">#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">08</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین حساب های#}
+        {#                                                توییتر برای یادگیری سرمایه گذاری در ایران</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">09</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">عادات بدی که#}
+        {#                                                افراد در#}
+        {#                                                صنعت تجارت باید ترک کنند!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">10</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">7 درس که تمام#}
+        {#                                                آنچه را#}
+        {#                                                که یک استارتاپ نیاز دارید به شما می آموزد!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">11</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">فیلم‌های بالیوودی#}
+        {#                                                الگوی ضدانقلاب شده!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">12</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link"> اطلاعات گرافیکی#}
+        {#                                                شگفت#}
+        {#                                                انگیز در مورد تجارت</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">13</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">10 مشکل بزرگ#}
+        {#                                                استارت‌آپ‌ها</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">14</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بررسی سرفیس پرو ۹#}
+        {#                                                |‌#}
+        {#                                                Surface Pro 9 Review</a></h5>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                    <!-- Tab items group END -->#}
+        {#                                    <!-- Tab items group START -->#}
+        {#                                    <div class="col-md-4">#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">15</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین حساب های#}
+        {#                                                توییتر برای یادگیری سرمایه گذاری</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">16</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">برگزاری جشنواره#}
+        {#                                                زمستانه آکادمی ایرانسل با تخفیف ویژه</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">17</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین تابلوهای#}
+        {#                                                Pinterest برای یادگیری در مورد تجارت</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">18</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">قهرمانی آرژانتین#}
+        {#                                                و#}
+        {#                                                لیونل مسی در جام جهانی قطر</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">19</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">گسترش ارتباط با#}
+        {#                                                دانشگاه، یکی از مهمترین الزامات اپراتور دیجیتال</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">20</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">سوالاتی که همه#}
+        {#                                                افراد#}
+        {#                                                شاغل در IT باید بدانند چگونه به آنها پاسخ دهند!</a></h5>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                    <!-- Tab items group END -->#}
+        {#                                </div>#}
+        {#                            </div>#}
+        {#                            <!-- Most read tab END -->#}
+        {#                            <!-- Trending tab START -->#}
+        {#                            <div class="tab-pane show" id="tab-1-2">#}
+        {#                                <div class="row">#}
+        {#                                    <!-- Tab items group START -->#}
+        {#                                    <div class="col-md-4">#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">01</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">انتشار پاسخ#}
+        {#                                                سؤالات#}
+        {#                                                «امتحان نهایی» ۸ دقیقه بعد از شروع امتحانات</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">02</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">20 اطلاعات#}
+        {#                                                گرافیکی#}
+        {#                                                شگفت انگیز در مورد تجارت</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">03</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">رایج ترین بحث#}
+        {#                                                تجاری#}
+        {#                                                آنطور که فکر می کنید پیچیده نیست!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">04</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">اجرای تفاهم‌نامه#}
+        {#                                                همکاری برای سهولت دریافت مدارک صنایع‌دستی</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">05</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">فیلم‌های بالیوودی#}
+        {#                                                الگوی ضدانقلاب شده!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">06</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">7 درس که تمام#}
+        {#                                                آنچه را#}
+        {#                                                که یک استارتاپ نیاز دارید به شما می آموزد!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">07</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">می شد از بدترین#}
+        {#                                                شکست#}
+        {#                                                کسب و کار در تمام دوران ها جلوگیری کرد!</a></h5>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                    <!-- Tab items group END -->#}
+        {#                                    <!-- Tab items group START -->#}
+        {#                                    <div class="col-md-4">#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">08</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">8 مشکل اولیه#}
+        {#                                                استارت#}
+        {#                                                آپ ها و راه حل آنها</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">09</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">برگزاری جشنواره#}
+        {#                                                زمستانه آکادمی ایرانسل با تخفیف ویژه</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">10</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">رازهای کوچک کثیف#}
+        {#                                                در#}
+        {#                                                مورد صنعت تجارت</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">11</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">10 مشکل بزرگ#}
+        {#                                                استارت‌آپ‌ها</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">12</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">هرکسی که در تجارت#}
+        {#                                                کار#}
+        {#                                                می کند باید بداند چگونه به آن پاسخ دهد!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">13</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین حساب های#}
+        {#                                                توییتر برای یادگیری سرمایه گذاری</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">14</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">بهترین تابلوهای#}
+        {#                                                Pinterest برای یادگیری در مورد تجارت</a></h5>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                    <!-- Tab items group END -->#}
+        {#                                    <!-- Tab items group START -->#}
+        {#                                    <div class="col-md-4">#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">15</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">10 نشانه که نشان#}
+        {#                                                می#}
+        {#                                                دهد برای شروع یک کسب و کار جدید به آن نیاز دارید!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">16</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">کنایه های آماری#}
+        {#                                                وزیر#}
+        {#                                                روحانی به دولت رئیسی درباره اینترنت</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">17</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">سوالاتی که همه#}
+        {#                                                افراد#}
+        {#                                                شاغل در IT باید بدانند چگونه به آنها پاسخ دهند!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">18</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">ایده کسب و کار که#}
+        {#                                                فورا شما را در روحیه خوبی قرار می دهد!</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">19</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">کیفیت هوای تهران#}
+        {#                                                همچنان ناسالم برای همه</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">20</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">طرح مجلس برای#}
+        {#                                                گرفتن#}
+        {#                                                مالیات از سفته بازها</a></h5>#}
+        {#                                        </div>#}
+        {#                                        <!-- Item -->#}
+        {#                                        <div class="d-flex position-relative mb-3">#}
+        {#                                            <span class="me-3 mt-n1 fa-fw fw-bold fs-3 opacity-5">21</span>#}
+        {#                                            <h5><a href="#" class="stretched-link text-reset btn-link">چگونه در محل کار#}
+        {#                                                تغذیه سالمی داشته باشیم؟</a></h5>#}
+        {#                                        </div>#}
+        {#                                    </div>#}
+        {#                                    <!-- Tab items group END -->#}
+        {#                                </div>#}
+        {#                            </div>#}
+        {#                            <!-- Trending tab END -->#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </section>#}
         <!-- =======================
         Tab post END -->
 

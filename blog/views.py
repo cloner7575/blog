@@ -7,10 +7,12 @@ from .models import Post
 class IndexView(View):
     def get(self, request):
         special_posts = Post.objects.filter(is_special=True)
-        posts = Post.objects.filter(is_special=False)
+        last_post = Post.objects.filter(is_special=False).order_by('-created_at').first()
+        top_8_posts = Post.objects.filter(is_special=False).order_by('-created_at')[1:9]
         context = {
             'special_posts': special_posts,
-            'posts': posts
+            'last_post': last_post,
+            'top_8_posts': top_8_posts
         }
 
         return render(request, 'blog/index.html', context)
