@@ -24,9 +24,11 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sepehradblog.runflare.run','127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['http://sepehradblog.runflare.run/']
 
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://sepehradblog.runflare.run/','https://sepehradblog.runflare.run/']
+CORS_ALLOWED_ORIGINS=['http://sepehradblog.runflare.run/','https://sepehradblog.runflare.run/']
+CSRF_USE_SESSIONS = False
 
 # Application definition
 
