@@ -56,6 +56,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, verbose_name='برچسب ها')
 
     is_special = models.BooleanField(default=False, verbose_name='ویژه')
+    is_urgent = models.BooleanField(default=False, verbose_name='فوری')
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')
     released_at = models.DateTimeField(verbose_name='زمان انتشار')

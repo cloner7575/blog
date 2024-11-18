@@ -75,66 +75,67 @@
         <!-- =======================
         Highlights START -->
         <section class="pt-0">
-            <div class="container">
+            <div class="container ">
                 <div class="row">
                     <div class="col-12">
                         {% if last_post %}
-                        <!-- Card item START -->
-                        <div class="card border rounded-3 up-hover p-4 mb-4">
-                            <div class="row g-3">
-                                <div class="col-lg-5">
-                                    <!-- Categories -->
-                                    {% for tag in last_post.tags.all %}
-                                        <a href="#" class="badge mb-2" style="background-color: {{ tag.color }}">
-                                            <i class="fas fa-circle me-2 small fw-bold"></i>{{ tag.name }}
-                                        </a>
-                                    {% endfor %}
-                                    <!-- Title -->
-                                    <h4 class="card-title">
-                                        <a href="{% url 'post_detail' last_post.slug %}"
-                                           class="btn-link text-reset stretched-link">{{ last_post.title }}</a>
-                                    </h4>
-                                    <!-- Author info -->
-                                    <div class="d-flex align-items-center position-relative mt-3">
-                                        {% if last_post.author %}
-                                            <div class="avatar me-2">
-                                                <img class="avatar-img rounded-circle"
-                                                     src="{{ last_post.author.avatar.url }}"
-                                                     alt="avatar">
+                            <!-- Card item START -->
+                            <div class="card border rounded-3 up-hover p-4 mb-4">
+                                <div class="row g-3">
+                                    <div class="col-lg-5">
+                                        <!-- Categories -->
+                                        {% for tag in last_post.tags.all %}
+                                            <a href="#" class="badge mb-2" style="background-color: {{ tag.color }}">
+                                                <i class="fas fa-circle me-2 small fw-bold"></i>{{ tag.name }}
+                                            </a>
+                                        {% endfor %}
+                                        <!-- Title -->
+                                        <h4 class="card-title">
+                                            <a href="{% url 'post_detail' last_post.slug %}"
+                                               class="btn-link text-reset stretched-link">{{ last_post.title }}</a>
+                                        </h4>
+                                        <!-- Author info -->
+                                        <div class="d-flex align-items-center position-relative mt-3">
+                                            {% if last_post.author %}
+                                                <div class="avatar me-2">
+                                                    <img class="avatar-img rounded-circle"
+                                                         src="{{ last_post.author.avatar.url }}"
+                                                         alt="avatar">
 
+                                                </div>
+                                                <h5 class="mb-1"><a href="#"
+                                                                    class="stretched-link text-reset btn-link">{{ last_post.author.user.first_name }}</a>
+                                                </h5>
+                                            {% endif %}
+
+                                            <div>
+
+                                                <ul class="nav align-items-center small">
+                                                    <li class="nav-item me-3"
+                                                        style="margin-right: 5px">{{ last_post.released_at|jalalidate }}</li>
+                                                    <li class="nav-item"><i
+                                                            class="far fa-clock me-1"></i>{{ last_post.time_to_read }}
+                                                        دقیقه
+                                                        زمان
+                                                        مطالعه
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <h5 class="mb-1"><a href="#"
-                                                                class="stretched-link text-reset btn-link">{{ last_post.author.user.first_name }}</a>
-                                            </h5>
-                                        {% endif %}
-
-                                        <div>
-
-                                            <ul class="nav align-items-center small">
-                                                <li class="nav-item me-3"
-                                                    style="margin-right: 5px">{{ last_post.released_at|jalalidate }}</li>
-                                                <li class="nav-item"><i
-                                                        class="far fa-clock me-1"></i>{{ last_post.time_to_read }} دقیقه
-                                                    زمان
-                                                    مطالعه
-                                                </li>
-                                            </ul>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Detail -->
-                                <div class="col-md-6 col-lg-4">
-                                    <p>{{ last_post.description }}</p>
-                                </div>
-                                <!-- Image -->
-                                <div class="col-md-6 col-lg-3">
-                                    <img class="rounded-3" src="{{ last_post.image.url }}"
-                                         alt="Card image">
+                                    <!-- Detail -->
+                                    <div class="col-md-6 col-lg-4">
+                                        <p>{{ last_post.description }}</p>
+                                    </div>
+                                    <!-- Image -->
+                                    <div class="col-md-6 col-lg-3">
+                                        <img class="rounded-3" src="{{ last_post.image.url }}"
+                                             alt="Card image">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Card item END -->
-                    {% endif %}
+                            <!-- Card item END -->
+                        {% endif %}
 
 
                     </div>
@@ -199,6 +200,51 @@
 
         <!-- =======================
         Adv END -->
+        <!-- =======================
+    Sticky post START -->
+        {% if social_media_info %}
+            <div class="sticky-post bg-light border p-4 mb-5 text-sm-end rounded d-none d-xxl-block">
+                <div class="row g-2">
+                    <a href=" {{ social_media_info.telegram_channel }}"
+                       class="d-flex justify-content-between align-items-center bg-twitter text-white-force rounded p-2 position-relative">
+                        <i class="fab fa-telegram fs-3"></i>
+                        <div class="d-flex">
+                            <h6 class="me-1 mb-0">{{ social_media_info.telegram_member|convert_num_to_k }}</h6>
+                            <small class="small">طرفدار</small>
+                        </div>
+                    </a>
+                    <a href="{{ social_media_info.instagram_page }}"
+                       class="d-flex justify-content-between align-items-center bg-instagram-gradient text-white-force rounded p-2 position-relative">
+                        <i class="fab fa-instagram fs-3"></i>
+                        <div class="d-flex">
+                            <h6 class="me-1 mb-0">{{ social_media_info.instagram_follower|convert_num_to_k }}</h6>
+                            <small class="small">حامیان</small>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        {% endif %}
+        <!-- =======================
+        Sticky post END -->
+
+        {% if urgent_post %}
+            <div class="sticky-post-right bg-light border p-4 mb-5 text-sm-start rounded d-none d-xxl-block">
+                <div class="d-flex align-items-center">
+                    <!-- image -->
+                    <div class="col-4 d-none d-md-block">
+                        <img src="{{ urgent_post.image.url }}" alt="Image">
+                    </div>
+                    <!-- Title -->
+                    <div class="ms-3 text-start">
+                        <span>خبر فوری</span>
+                        <h6 class="m-0"><a href="{% url 'post_detail' urgent_post.slug %}"
+                                           class="stretched-link btn-link text-reset">{{ urgent_post.title }}</a></h6>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
 
         <!-- =======================
         Small post START -->

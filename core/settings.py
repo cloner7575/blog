@@ -26,8 +26,8 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['http://sepehradblog.runflare.run','https://sepehradblog.runflare.run']
-CORS_ALLOWED_ORIGINS=['http://sepehradblog.runflare.run','https://sepehradblog.runflare.run']
+CSRF_TRUSTED_ORIGINS = ['http://sepehradblog.runflare.run','https://sepehradblog.runflare.run','http://localhost','http://127.0.0.1']
+CORS_ALLOWED_ORIGINS=['http://sepehradblog.runflare.run','https://sepehradblog.runflare.run','http://localhost','http://127.0.0.1']
 CSRF_USE_SESSIONS = False
 CSRF_COOKIE_SECURE = False
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'blog',
     'accounts',
+    'social_media',
 
 ]
 
@@ -139,8 +140,9 @@ AUTH_USER_MODEL = 'accounts.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
