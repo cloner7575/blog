@@ -24,14 +24,7 @@ __pycache__/*.py[cod]
 
 
 # apps migrations
-accounts/migrations/*
-!accounts/migrations/__init__.py
 
-blog/migrations/*
-!blog/migrations/__init__.py
-
-social_media/migrations/*
-!social_media/migrations/__init__.py
 
 node_modules
 package.json
