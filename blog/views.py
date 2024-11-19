@@ -30,6 +30,16 @@ class IndexView(View):
         return render(request, 'blog/index.html', context)
 
 
+class AllPostsView(View):
+    def get(self, request):
+        posts = Post.objects.filter(released_at__lte=timezone.now()).order_by('-created_at')
+        context = {
+            'posts': posts
+        }
+
+        return render(request, 'blog/all_posts.html', context)
+
+
 class PostDetailView(View):
     def get(self, request, slug):
         post = Post.objects.get(slug=slug)

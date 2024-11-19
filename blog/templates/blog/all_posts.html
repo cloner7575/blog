@@ -1,0 +1,41 @@
+{% extends 'master.html' %}
+{% load static %}
+{% load index_tags %}
+{% block content %}
+    <main>
+        <section class="position-relative pt-0">
+            <div class="container">
+                <div class="row filter-container overflow-hidden" data-isotope='{"layoutMode": "masonry"}'>
+                    {% for post in posts %}
+                        <!-- Card item START -->
+                        <div class="col-sm-6 col-lg-4 grid-item">
+                            <div class="card mb-4">
+                                <!-- Card img -->
+                                <div class="card-fold position-relative">
+                                    <img class="card-img" src="{{ post.image.url }}" alt="Card image">
+                                </div>
+                                <div class="card-body px-0 pt-3">
+                                    <h4 class="card-title"><a href="{% url 'post_detail' post.slug %}"
+                                                              class="btn-link text-reset stretched-link">{{ post.title }}</a>
+                                    </h4>
+                                    <p class="card-text">{{ post.description }}</p>
+                                    <!-- Card info -->
+                                    <ul class="nav nav-divider align-items-center text-uppercase small">
+                                        {% if post.author %}
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link text-reset btn-link">{{ post.author.first_name }}</a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="nav-item">{{ post.released_at|jalalidate }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card item END -->
+                    {% endfor %}
+
+                </div> <!-- Row end -->
+            </div>
+        </section>
+    </main>
+{% endblock %}
