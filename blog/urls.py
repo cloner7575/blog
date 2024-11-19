@@ -4,6 +4,6 @@ from .views import IndexView, PostDetailView, AllPostsView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='home'),
-    re_path(r'^(?P<slug>[\w-]+)/$', PostDetailView.as_view(), name='post_detail'),
+    re_path(r'^posts/(?P<slug>[\w-]+)/$', PostDetailView.as_view(), name='post_detail'),
     path('posts/', AllPostsView.as_view(), name='all_posts'),
 ]
