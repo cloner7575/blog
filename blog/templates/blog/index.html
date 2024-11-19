@@ -165,7 +165,7 @@
                                     <ul class="nav nav-divider align-items-center text-uppercase small">
                                         {% if post.author %}
                                             <li class="nav-item">
-                                                <a href="#" class="nav-link text-reset btn-link">رضا مرادی</a>
+                                                <a href="#" class="nav-link text-reset btn-link">{{ post.author.user.first_name }}</a>
                                             </li>
                                         {% endif %}
                                         <li class="nav-item">{{ post.released_at|jalalidate }}</li>
