@@ -140,12 +140,14 @@ AUTH_USER_MODEL = 'accounts.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/public/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "public","static")
-MEDIA_URL = '/public/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "public","media")
+STATIC_URL = config('STATIC_URL', default='/static/')
+STATIC_ROOT = config('STATIC_ROOT', default=os.path.join(BASE_DIR, 'staticfiles'))
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+MEDIA_URL = config('MEDIA_URL', default='/media/')
+MEDIA_ROOT = config('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'media'))
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

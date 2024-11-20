@@ -10,12 +10,14 @@ from .models import Post
 
 class IndexView(View):
     def get(self, request):
-        special_posts = Post.objects.filter(is_special=True, released_at__lte=timezone.now()).order_by('-created_at')
-        last_post = Post.objects.filter(is_special=False, released_at__lte=timezone.now()).order_by(
+        special_posts = Post.objects.filter(is_special=True, released_at__lte=timezone.now(),
+                                            is_published=True).order_by('-created_at')
+        last_post = Post.objects.filter(is_special=False, released_at__lte=timezone.now(), is_published=True).order_by(
             '-created_at').first()
-        top_8_posts = Post.objects.filter(is_special=False, released_at__lte=timezone.now()).order_by('-created_at')[
-                      1:9]
-        urgent_post = Post.objects.filter(is_urgent=True, released_at__lte=timezone.now()).order_by(
+        top_8_posts = Post.objects.filter(released_at__lte=timezone.now(),
+                                          is_published=True).order_by('-created_at')[
+                      0:8]
+        urgent_post = Post.objects.filter(is_urgent=True, released_at__lte=timezone.now(), is_published=True).order_by(
             '-created_at').first()
         social_media_info = SocialMedia.objects.first()
 
@@ -32,7 +34,7 @@ class IndexView(View):
 
 class AllPostsView(View):
     def get(self, request):
-        posts = Post.objects.filter(released_at__lte=timezone.now()).order_by('-created_at')
+        posts = Post.objects.filter(released_at__lte=timezone.now(), is_published=True).order_by('-created_at')
         context = {
             'posts': posts
         }

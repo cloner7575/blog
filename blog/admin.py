@@ -1,15 +1,20 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
+from .forms import PostAdminForm
 from .models import Post, Category, Tag, Author
 
 
 # Register your models here.
 
+
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'author', 'is_special', 'created_at']
-    list_filter = ['category', 'author', 'is_special']
+    form = PostAdminForm
+    list_display = ['title', 'category', 'author', 'is_special', 'is_published', 'created_at']
+    list_filter = ['category', 'author', 'is_special', 'is_published']
     search_fields = ['title', 'content']
     date_hierarchy = 'created_at'
     prepopulated_fields = {'slug': ('title',)}
@@ -30,7 +35,6 @@ class TagAdmin(admin.ModelAdmin):
         return mark_safe(f'<div style="width: 50px; height: 50px; background-color: {obj.color};"></div>')
 
     color_tag.short_description = 'رنگ'
-
 
 
 @admin.register(Author)
